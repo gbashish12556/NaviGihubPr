@@ -1,4 +1,8 @@
 package com.example.navigithubpr.Prs
 
-class PrViewModel {
+import androidx.lifecycle.ViewModel
+import com.example.navigithubpr.data.Source.PrRepository
+
+class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
+
 }
