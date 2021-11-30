@@ -11,7 +11,7 @@ import com.example.navigithubpr.data.Source.remote.RemoteDataSource
 import kotlinx.coroutines.runBlocking
 
 object ServiceLocator {
-    
+
     @Volatile
     var prRepository: PrRepository? = null
         @VisibleForTesting set
