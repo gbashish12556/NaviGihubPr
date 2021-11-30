@@ -5,20 +5,20 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitClient private constructor() {
+class RemoteNetworkingClient private constructor() {
     private val retrofit: Retrofit
     val api: Api
         get() = retrofit.create(Api::class.java)
 
     companion object {
         const val BASE_URL = "https://api.github.com"
-        private var mRetrofitInstance: RetrofitClient? = null
+        private var mRetrofitInstance: RemoteNetworkingClient? = null
 
         @get:Synchronized
-        val instance: RetrofitClient?
+        val instance: RemoteNetworkingClient?
             get() {
                 if (mRetrofitInstance == null) {
-                    mRetrofitInstance = RetrofitClient()
+                    mRetrofitInstance = RemoteNetworkingClient()
                 }
                 return mRetrofitInstance
             }
