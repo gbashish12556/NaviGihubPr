@@ -7,16 +7,21 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.navigithubpr.HomeScreen.HomeFragment"
+        android:name="com.example.navigithubpr.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_prListFragment"
             app:destination="@id/prListFragment" />
+        <argument
+            android:name="userInput"
+            app:argType="com.example.navigithubpr.data.UserInput" />
     </fragment>
+
     <fragment
         android:id="@+id/prListFragment"
-        android:name="com.example.navigithubpr.Prs.PrListFragment"
+        android:name="com.example.navigithubpr.prlist.PrListFragment"
         android:label="fragment_pr_list"
         tools:layout="@layout/fragment_pr_list" />
+
 </navigation>

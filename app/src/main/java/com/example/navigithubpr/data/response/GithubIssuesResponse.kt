@@ -1,4 +1,4 @@
-package com.example.navigithubpr.data
+package com.example.navigithubpr.data.response
 
 
 import com.google.gson.annotations.SerializedName

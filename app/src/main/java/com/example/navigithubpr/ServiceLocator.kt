@@ -1,15 +1,11 @@
 package com.example.navigithubpr
 
-import android.app.Application
-import android.content.Context
 import androidx.annotation.VisibleForTesting
-import androidx.room.Room
-import com.example.navigithubpr.data.Source.DefaultPreRepository
-import com.example.navigithubpr.data.Source.PrDataSource
-import com.example.navigithubpr.data.Source.PrRepository
-import com.example.navigithubpr.data.Source.remote.Api
-import com.example.navigithubpr.data.Source.remote.RemoteDataSource
-import kotlinx.coroutines.runBlocking
+import com.example.navigithubpr.data.source.DefaultPreRepository
+import com.example.navigithubpr.data.source.PrDataSource
+import com.example.navigithubpr.data.source.PrRepository
+import com.example.navigithubpr.data.source.remote.Api
+import com.example.navigithubpr.data.source.remote.RemoteDataSource
 
 object ServiceLocator {
 

@@ -1,4 +1,4 @@
-package com.example.navigithubpr.HomeScreen
+package com.example.navigithubpr.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

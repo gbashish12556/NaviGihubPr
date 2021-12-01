@@ -1,4 +1,4 @@
-package com.example.navigithubpr.data.Source.remote
+package com.example.navigithubpr.data.source.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

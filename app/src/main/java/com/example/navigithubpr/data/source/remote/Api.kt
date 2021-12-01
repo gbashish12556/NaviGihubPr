@@ -1,6 +1,6 @@
-package com.example.navigithubpr.data.Source.remote
+package com.example.navigithubpr.data.source.remote
 
-import com.example.navigithubpr.data.GithubIssuesResponse
+import com.example.navigithubpr.data.response.GithubIssuesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

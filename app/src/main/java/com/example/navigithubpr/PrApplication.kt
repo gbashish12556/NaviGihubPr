@@ -1,10 +1,9 @@
 package com.example.navigithubpr
 
 import android.app.Application
-import com.example.navigithubpr.data.Source.PrRepository
-import com.example.navigithubpr.data.Source.remote.Api
-import com.example.navigithubpr.data.Source.remote.RemoteNetworkingClient
-import timber.log.Timber
+import com.example.navigithubpr.data.source.PrRepository
+import com.example.navigithubpr.data.source.remote.Api
+import com.example.navigithubpr.data.source.remote.RemoteNetworkingClient
 
 class PrApplication : Application() {
 

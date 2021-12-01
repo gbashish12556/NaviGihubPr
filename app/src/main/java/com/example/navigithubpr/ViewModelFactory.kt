@@ -5,9 +5,9 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.navigithubpr.HomeScreen.HomeViewModel
-import com.example.navigithubpr.Prs.PrViewModel
-import com.example.navigithubpr.data.Source.PrRepository
+import com.example.navigithubpr.home.HomeViewModel
+import com.example.navigithubpr.prlist.PrViewModel
+import com.example.navigithubpr.data.source.PrRepository
 
 /**
  * Factory for all ViewModels.
@@ -26,7 +26,7 @@ class ViewModelFactory constructor(
     ) = with(modelClass) {
         when {
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(prRepository)
+                HomeViewModel()
             isAssignableFrom(PrViewModel::class.java) ->
                 PrViewModel(prRepository)
             else ->

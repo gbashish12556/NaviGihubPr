@@ -1,8 +1,8 @@
-package com.example.navigithubpr.data.Source.remote
+package com.example.navigithubpr.data.source.remote
 
-import com.example.navigithubpr.data.GithubIssuesResponse
+import com.example.navigithubpr.data.response.GithubIssuesResponse
 import com.example.navigithubpr.data.Result
-import com.example.navigithubpr.data.Source.PrDataSource
+import com.example.navigithubpr.data.source.PrDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
