@@ -16,58 +16,71 @@
           type="com.example.navigithubpr.prlist.PrViewModel" />
    </data>
 
-   <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20dp">
-
-   <ImageView
-       android:id="@+id/userImage"
-       android:layout_width="100dp"
-       android:layout_height="100dp"
-       android:imageResource="@{pr.user.avatarUrl}"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent" />
-
-   <TextView
-       android:id="@+id/prTitle"
-       android:text="@{`Title : `+pr.title}"
-       android:layout_marginLeft="20dp"
-       app:layout_constraintStart_toEndOf="@id/userImage"
-       app:layout_constraintTop_toTopOf="@id/userImage"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
-
-   <TextView
-       android:id="@+id/userName"
-       android:text="@{`UserName : `+pr.user.login}"
-       android:layout_marginLeft="20dp"
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
        android:layout_marginTop="10dp"
-       app:layout_constraintStart_toEndOf="@id/userImage"
-       app:layout_constraintTop_toBottomOf="@id/prTitle"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       app:cardCornerRadius="10dp">
 
-   <TextView
-       android:id="@+id/openDate"
-       android:text="@{`OpenDate : `+pr.createdAt}"
-       android:layout_marginLeft="20dp"
-       android:layout_marginTop="10dp"
-       app:layout_constraintStart_toEndOf="@id/userImage"
-       app:layout_constraintTop_toBottomOf="@id/userName"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:background="@color/light_grey">
 
-   <TextView
-       android:id="@+id/closedData"
-       android:text="@{`Closed Data : `+pr.closedAt}"
-       android:layout_marginLeft="20dp"
-       android:layout_marginTop="10dp"
-       app:layout_constraintStart_toEndOf="@id/userImage"
-       app:layout_constraintTop_toBottomOf="@id/openDate"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
+         <ImageView
+             android:id="@+id/userImage"
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+             android:imageResource="@{pr.user.avatarUrl}"
+             android:layout_marginLeft="5dp"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+         <TextView
+             android:id="@+id/prTitle"
+             android:text="@{`Title : `+pr.title}"
+             android:layout_marginLeft="20dp"
+             app:layout_constraintStart_toEndOf="@id/userImage"
+             app:layout_constraintTop_toTopOf="@id/userImage"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <TextView
+             android:id="@+id/userName"
+             android:text="@{`UserName : `+pr.user.login}"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="10dp"
+             app:layout_constraintStart_toEndOf="@id/userImage"
+             app:layout_constraintTop_toBottomOf="@id/prTitle"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <TextView
+             android:id="@+id/openDate"
+             android:text="@{`OpenDate : `+pr.createdAt}"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="10dp"
+             app:layout_constraintStart_toEndOf="@id/userImage"
+             app:layout_constraintTop_toBottomOf="@id/userName"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <TextView
+             android:id="@+id/closedData"
+             android:text="@{`Closed Date : `+pr.closedAt}"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="10dp"
+             app:layout_constraintStart_toEndOf="@id/userImage"
+             app:layout_constraintTop_toBottomOf="@id/openDate"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+   </androidx.cardview.widget.CardView>
 
 </layout>
