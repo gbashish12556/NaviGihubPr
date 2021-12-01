@@ -15,7 +15,6 @@ import retrofit2.Response
 class RemoteDataSource(private val api: Api):PrDataSource {
 
     override fun getTasks(userInput: UserInput):Call<List<GithubIssuesResponse>> {
-        Log.d("Ashish","CallingREtrofit")
       return api.getAllResponse(userInput.orgname, userInput.folderName, userInput.prStatus)
     }
 

@@ -34,7 +34,6 @@ class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
             withContext(Dispatchers.Main) {
                 _dataLoading.postValue(false)
                 if (response is List<GithubIssuesResponse>) {
-//                    Log.d("Ashish", response[0]?.user?.avatarUrl!!.toString())
                     _items.postValue(response)
                 } else {
                     _items.postValue(emptyList())
