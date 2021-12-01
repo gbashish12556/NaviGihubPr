@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,10 @@ class HomeFragment : Fragment() {
 
     private fun setupNavigation(){
         viewModel.dataSubmitted.observe(viewLifecycleOwner, Observer { userInput ->
+            if(userInput.folderName.isNullOrEmpty() || userInput.orgname.isNullOrEmpty() || userInput.prStatus.isNullOrEmpty()){
+                Toast.makeText(activity, "Invalid Input", Toast.LENGTH_LONG).show()
+                return@Observer
+            }
             findNavController().navigate(R.id.action_homeFragment_to_prListFragment, Bundle().apply {
                 putSerializable("userInput", userInput)
             })
