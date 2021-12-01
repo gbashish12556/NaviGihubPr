@@ -10,6 +10,8 @@ import com.example.navigithubpr.R
 
 class HomeFragment : Fragment() {
 
+//    private lateinit var viewDataBinding: AddtaskFragBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

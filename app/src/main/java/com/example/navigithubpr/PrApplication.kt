@@ -11,8 +11,9 @@ class PrApplication : Application() {
     val prRepository: PrRepository
         get() = ServiceLocator.provideTasksRepository(this)
 
-    val api:Api
+    val api: Api
         get() = RemoteNetworkingClient.instance!!.api
+
 
     override fun onCreate() {
         super.onCreate()
