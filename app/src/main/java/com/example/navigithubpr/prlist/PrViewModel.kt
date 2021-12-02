@@ -23,10 +23,13 @@ class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
 
     var job: Job? = null
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        noMatchFound()
+    }
+
+    fun noMatchFound(){
         _items.postValue(emptyList())
         _isDataLoadingError.postValue(true)
     }
-
     fun loadPr(userInput: UserInput) {
         _dataLoading.postValue(true)
         job = viewModelScope.launch(Dispatchers.IO+exceptionHandler) {
@@ -36,8 +39,7 @@ class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
                 if (response is List<GithubIssuesResponse>) {
                     _items.postValue(response)
                 } else {
-                    _items.postValue(emptyList())
-                    _isDataLoadingError.postValue(true)
+                    noMatchFound()
                 }
             }
         }
