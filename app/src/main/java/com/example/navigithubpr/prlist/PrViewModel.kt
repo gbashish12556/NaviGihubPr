@@ -1,15 +1,15 @@
 package com.example.navigithubpr.prlist
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.example.navigithubpr.data.Result
 import com.example.navigithubpr.data.UserInput
 import com.example.navigithubpr.data.response.GithubIssuesResponse
 import com.example.navigithubpr.data.source.PrRepository
 import kotlinx.coroutines.*
-import retrofit2.await
 
 class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
+
+
+    private val _updateData = MutableLiveData<UserInput>(UserInput("android","architecture-samples","all"))
 
     private val _dataLoading = MutableLiveData<Boolean>(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
@@ -17,32 +17,28 @@ class PrViewModel(private val prRepository: PrRepository) : ViewModel() {
     private val _isDataLoadingError = MutableLiveData<Boolean>(false)
     val isDataLoadingError = _isDataLoadingError
 
-    private val _items = MutableLiveData<List<GithubIssuesResponse>>()
+    private val _items: LiveData<List<GithubIssuesResponse>> = _updateData.switchMap { userInput ->
+            _dataLoading.value = true
+            viewModelScope.launch {
+                prRepository.refreshTask(userInput)
+                _dataLoading.value = false
+            }
+            prRepository.getTasks(userInput).switchMap {
+                filterPrs(it)
+            }
+    }
+
     val items: LiveData<List<GithubIssuesResponse>> = _items
 
-
-    var job: Job? = null
-    val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        noMatchFound()
+    private fun filterPrs(tasksResult: List<GithubIssuesResponse>): MutableLiveData<List<GithubIssuesResponse>> {
+        val result = MutableLiveData<List<GithubIssuesResponse>>()
+        result.postValue(tasksResult)
+        return result
     }
 
-    fun noMatchFound(){
-        _items.postValue(emptyList())
-        _isDataLoadingError.postValue(true)
+    public fun refreshTask(userInput: UserInput){
+        _updateData.value = userInput
     }
-    fun loadPr(userInput: UserInput) {
-        _dataLoading.postValue(true)
-        job = viewModelScope.launch(Dispatchers.IO+exceptionHandler) {
-            val response = prRepository.getTasks(userInput).await()
-            withContext(Dispatchers.Main) {
-                _dataLoading.postValue(false)
-                if (response is List<GithubIssuesResponse>) {
-                    _items.postValue(response)
-                } else {
-                    noMatchFound()
-                }
-            }
-        }
-    }
+
 
 }

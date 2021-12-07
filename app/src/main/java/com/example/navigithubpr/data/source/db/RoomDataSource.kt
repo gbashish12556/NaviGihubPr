@@ -16,11 +16,11 @@ class RoomDataSource internal constructor(
         return smsDao.allPosts()
     }
 
-    override suspend fun deleteAllSms() = withContext(ioDispatcher){
+    override suspend fun deleteAllPrs() = withContext(ioDispatcher){
         smsDao.deleteSms()
     }
 
-    override suspend fun insertSms(smsList: List<GithubIssuesResponse>) = withContext(ioDispatcher){
+    override suspend fun insertPrs(smsList: List<GithubIssuesResponse>) = withContext(ioDispatcher){
         smsDao.insertAll(smsList)
     }
 

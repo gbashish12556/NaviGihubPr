@@ -8,7 +8,7 @@ import com.example.navigithubpr.data.source.remote.RemoteNetworkingClient
 class PrApplication : Application() {
 
     val prRepository: PrRepository
-        get() = ServiceLocator.provideTasksRepository()
+        get() = ServiceLocator.provideTasksRepository(this)
 
     override fun onCreate() {
         super.onCreate()
