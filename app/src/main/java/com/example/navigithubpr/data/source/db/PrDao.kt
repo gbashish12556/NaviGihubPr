@@ -14,9 +14,9 @@ interface PrDao {
     suspend fun insertAll(posts: List<GithubIssuesResponse>)
 
     @Query("SELECT * FROM issues_table")
-    fun allPosts(): LiveData<List<GithubIssuesResponse>>
+    fun allPrs(): LiveData<List<GithubIssuesResponse>>
 
     @Query("DELETE FROM issues_table")
-    suspend fun deleteSms()
+    suspend fun deletePrs()
 
 }

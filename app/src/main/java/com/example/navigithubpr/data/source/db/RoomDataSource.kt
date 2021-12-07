@@ -9,19 +9,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RoomDataSource internal constructor(
-    private val smsDao: PrDao,
+    private val prDao: PrDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO ) : PrLocalDataSource{
 
-    override fun getSms(): LiveData<List<GithubIssuesResponse>> {
-        return smsDao.allPosts()
+    override fun getPrs(): LiveData<List<GithubIssuesResponse>> {
+        return prDao.allPrs()
     }
 
     override suspend fun deleteAllPrs() = withContext(ioDispatcher){
-        smsDao.deleteSms()
+        prDao.deletePrs()
     }
 
-    override suspend fun insertPrs(smsList: List<GithubIssuesResponse>) = withContext(ioDispatcher){
-        smsDao.insertAll(smsList)
+    override suspend fun insertPrs(prList: List<GithubIssuesResponse>) = withContext(ioDispatcher){
+        prDao.insertAll(prList)
     }
 
 }
