@@ -2,11 +2,13 @@ package com.example.navigithubpr.data.response
 
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Entity(tableName = "issues_table")
 data class GithubIssuesResponse(
+    @PrimaryKey
     @SerializedName("id")
     var id: Long?,
     @SerializedName("user")
