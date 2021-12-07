@@ -5,7 +5,7 @@ import com.example.navigithubpr.data.UserInput
 import retrofit2.Call
 import retrofit2.Response
 
-interface PrDataSource {
+interface PrRemoteDataSource {
 
     fun getTasks(userInput: UserInput): Call<List<GithubIssuesResponse>>
 
