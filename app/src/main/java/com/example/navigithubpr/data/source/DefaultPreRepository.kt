@@ -11,6 +11,7 @@ import retrofit2.await
 class DefaultPreRepository(private val prRemoteDataSource: PrRemoteDataSource,
                            private val prLocalDataSource: PrLocalDataSource,
                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO):PrRepository {
+
     override fun getTasks(userInput: UserInput): LiveData<List<GithubIssuesResponse>> {
         return prLocalDataSource.getPrs()
     }

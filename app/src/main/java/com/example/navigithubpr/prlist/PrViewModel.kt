@@ -24,8 +24,8 @@ class PrViewModel
     private val _items: LiveData<List<GithubIssuesResponse>> = _updateData.switchMap { userInput ->
             _dataLoading.value = true
             viewModelScope.launch {
-//                prRepository.refreshTask(userInput)
-//                _dataLoading.value = false
+                prRepository.refreshTask(userInput)
+                _dataLoading.value = false
             }
             prRepository.getTasks(userInput).switchMap {
                 filterPrs(it)
