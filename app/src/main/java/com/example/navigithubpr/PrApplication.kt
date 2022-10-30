@@ -2,13 +2,12 @@ package com.example.navigithubpr
 
 import android.app.Application
 import com.example.navigithubpr.data.source.PrRepository
-import com.example.navigithubpr.data.source.remote.Api
-import com.example.navigithubpr.data.source.remote.RemoteNetworkingClient
+import com.example.navigithubpr.data.source.remote.ApiHelper
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
+@HiltAndroidApp
 class PrApplication : Application() {
-
-    val prRepository: PrRepository
-        get() = ServiceLocator.provideTasksRepository(this)
 
     override fun onCreate() {
         super.onCreate()

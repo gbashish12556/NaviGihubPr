@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.navigithubpr.data.UserInput
+import com.example.navigithubpr.data.source.PrRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel() : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor() : ViewModel()
+{
 
     private val _dataSubmitted = MutableLiveData<UserInput>()
     val dataSubmitted: LiveData<UserInput> = _dataSubmitted

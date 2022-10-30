@@ -1,26 +1,23 @@
 package com.example.navigithubpr.prlist
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.activityViewModels
 import com.example.navigithubpr.R
 import com.example.navigithubpr.data.UserInput
 import com.example.navigithubpr.databinding.FragmentPrListBinding
-import com.example.navigithubpr.util.getViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.navigithubpr.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PrListFragment : Fragment() {
 
-    private val viewModel by viewModels<PrViewModel> { getViewModelFactory() }
+    private val viewModel: PrViewModel by activityViewModels();
 
     private lateinit var viewDataBinding: FragmentPrListBinding
 

@@ -7,6 +7,6 @@ import retrofit2.Response
 
 interface PrRemoteDataSource {
 
-    fun getTasks(userInput: UserInput): Call<List<GithubIssuesResponse>>
+    suspend fun getTasks(userInput: UserInput): Response<List<GithubIssuesResponse>>
 
 }

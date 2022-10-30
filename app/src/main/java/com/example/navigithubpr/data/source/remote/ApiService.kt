@@ -8,11 +8,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface Api {
+interface ApiService {
     @GET("/repos/{orgName}/{repoName}/issues")
-    fun getAllResponse(
+    suspend fun getAllResponse(
         @Path("orgName") orgname: String?,
         @Path("repoName") repoName: String?,
         @Query("state") state: String?
-    ): Call<List<GithubIssuesResponse>>
+    ): Response<List<GithubIssuesResponse>>
 }

@@ -18,10 +18,10 @@ class DefaultPreRepository(private val prRemoteDataSource: PrRemoteDataSource,
 
     private suspend fun updateTasksFromRemoteDataSource(userInput: UserInput) {
         withContext(ioDispatcher) {
-            val remoteTasks = prRemoteDataSource.getTasks(userInput).await()
-            if (remoteTasks.size > 0) {
+            val remoteTasks = prRemoteDataSource.getTasks(userInput)
+            if (remoteTasks.body()!!.size > 0) {
                 prLocalDataSource.deleteAllPrs()
-                prLocalDataSource.insertPrs(remoteTasks)
+                prLocalDataSource.insertPrs(remoteTasks.body()!!)
             }
         }
     }
