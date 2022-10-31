@@ -30,8 +30,10 @@ class ActivityModule {
 
     @PrViewModeComponent
     @Provides
-    fun providePrRepository(@PrViewModeComponent prRemoteDataSource: PrRemoteDataSource, @PrViewModeComponent prLocalDataSource: PrLocalDataSource): PrRepository {
-        return DefaultPreRepository(prRemoteDataSource, prLocalDataSource);
+    fun providePrRepository(@PrViewModeComponent prRemoteDataSource: PrRemoteDataSource,
+//                            @PrViewModeComponent prLocalDataSource: PrLocalDataSource
+    ): PrRepository {
+        return DefaultPreRepository(prRemoteDataSource);
     }
 
     @PrViewModeComponent
@@ -41,11 +43,11 @@ class ActivityModule {
     }
 
 
-    @PrViewModeComponent
-    @Provides
-    fun provideLocalDataSource(prLocalDb: PrLocalDb):PrLocalDataSource{
-        return RoomDataSource(prLocalDb.prDao());
-    }
+//    @PrViewModeComponent
+//    @Provides
+//    fun provideLocalDataSource(prLocalDb: PrLocalDb):PrLocalDataSource{
+//        return RoomDataSource(prLocalDb.prDao());
+//    }
 
 }
 

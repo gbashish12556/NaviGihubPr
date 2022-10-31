@@ -11,7 +11,7 @@ import retrofit2.Response
 import retrofit2.await
 
 class DefaultPreRepository(private val prRemoteDataSource: PrRemoteDataSource,
-                           private val prLocalDataSource: PrLocalDataSource,
+//                           private val prLocalDataSource: PrLocalDataSource,
                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO):PrRepository {
 
     override suspend fun getTasks(userInput: UserInput): Response<List<GithubIssuesResponse>> {
