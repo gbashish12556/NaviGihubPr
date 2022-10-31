@@ -4,16 +4,15 @@ import androidx.lifecycle.*
 import com.example.navigithubpr.NetworkHelper
 import com.example.navigithubpr.data.UserInput
 import com.example.navigithubpr.data.response.GithubIssuesResponse
-import com.example.navigithubpr.data.response.Resource
 import com.example.navigithubpr.data.source.PrRepository
-import com.example.navigithubpr.home.PrViewModeComponent
+import com.example.navigithubpr.home.PrViewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
 class PrViewModel
-@Inject constructor(@PrViewModeComponent var prRepository: PrRepository, private val networkHelper: NetworkHelper) : ViewModel()
+@Inject constructor(@PrViewModelScope var prRepository: PrRepository, private val networkHelper: NetworkHelper) : ViewModel()
 {
 
     private val userInput = UserInput("android","architecture-samples","all")
