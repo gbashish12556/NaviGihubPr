@@ -64,28 +64,6 @@ class ApplicationModule {
         return ApiHelperImpl(apiService);
     }
 
-
-
-    @Provides
-    @Singleton
-    fun providePrRepository(prRemoteDataSource: PrRemoteDataSource, prLocalDataSource: PrLocalDataSource): PrRepository {
-       return DefaultPreRepository(prRemoteDataSource, prLocalDataSource);
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideRemoteDataSource(apiHelper: ApiHelper):PrRemoteDataSource{
-        return RemoteDataSource(apiHelper);
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideLocalDataSource(prLocalDb: PrLocalDb):PrLocalDataSource{
-        return RoomDataSource(prLocalDb.prDao());
-    }
-
     @Provides
     @Singleton
     fun provideDataBase(@ApplicationContext context:Context):PrLocalDb{

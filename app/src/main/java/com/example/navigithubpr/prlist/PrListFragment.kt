@@ -50,7 +50,7 @@ class PrListFragment : Fragment() {
         } else {
             Timber.w("ViewModel not initialized when attempting to set up adapter.")
         }
-        viewModel!!.refreshTask(userInput)
+        viewModel!!.fetchUsers(userInput)
     }
 
 }

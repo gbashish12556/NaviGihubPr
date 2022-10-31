@@ -9,7 +9,7 @@ import retrofit2.Response
 
 interface PrRepository {
 
-    fun getTasks(userInput: UserInput): LiveData<List<GithubIssuesResponse>>
-    suspend fun refreshTask(userInput: UserInput)
+    suspend fun getTasks(userInput: UserInput): Response<List<GithubIssuesResponse>>
+//    suspend fun refreshTask(userInput: UserInput)
 
 }

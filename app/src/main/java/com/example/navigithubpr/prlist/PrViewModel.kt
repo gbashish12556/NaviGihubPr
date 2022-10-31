@@ -1,48 +1,56 @@
 package com.example.navigithubpr.prlist
 
 import androidx.lifecycle.*
+import com.example.navigithubpr.NetworkHelper
 import com.example.navigithubpr.data.UserInput
 import com.example.navigithubpr.data.response.GithubIssuesResponse
+import com.example.navigithubpr.data.response.Resource
 import com.example.navigithubpr.data.source.PrRepository
+import com.example.navigithubpr.home.PrViewModeComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
 class PrViewModel
-@Inject constructor(var prRepository: PrRepository) : ViewModel()
+@Inject constructor(@PrViewModeComponent var prRepository: PrRepository, private val networkHelper: NetworkHelper) : ViewModel()
 {
 
-    private val _updateData = MutableLiveData<UserInput>(UserInput("android","architecture-samples","all"))
+    private val userInput = UserInput("android","architecture-samples","all")
 
     private val _dataLoading = MutableLiveData<Boolean>(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _isDataLoadingError = MutableLiveData<Boolean>(false)
-    val isDataLoadingError = _isDataLoadingError
+    private val _isDataLoadingError = MutableLiveData<Pair<Boolean,String>>(Pair(false,""))
+    val isDataLoadingError: LiveData<Pair<Boolean,String>> = _isDataLoadingError
 
-    private val _items: LiveData<List<GithubIssuesResponse>> = _updateData.switchMap { userInput ->
-            _dataLoading.value = true
-            viewModelScope.launch {
-                prRepository.refreshTask(userInput)
-                _dataLoading.value = false
+
+    private val _users = MutableLiveData<List<GithubIssuesResponse>>()
+    val items: LiveData<List<GithubIssuesResponse>>
+        get() = _users
+
+    init {
+        fetchUsers(userInput)
+    }
+
+    fun fetchUsers(userInput: UserInput) {
+        viewModelScope.launch {
+            if (networkHelper.isNetworkConnected()) {
+                _dataLoading.value = true;
+                prRepository.getTasks(userInput).let {
+                    _dataLoading.value  = false;
+                    if (it.isSuccessful) {
+                        _isDataLoadingError.value = Pair(false,"")
+                        _users.postValue(it.body())
+                    } else {
+                        _isDataLoadingError.value = Pair(true,"No Match Found")
+                    }
+                }
             }
-            prRepository.getTasks(userInput).switchMap {
-                filterPrs(it)
+            else {
+                _isDataLoadingError.value = Pair(true,"Slow Internet")
             }
+        }
     }
-
-    val items: LiveData<List<GithubIssuesResponse>> = _items
-
-    private fun filterPrs(tasksResult: List<GithubIssuesResponse>): MutableLiveData<List<GithubIssuesResponse>> {
-        val result = MutableLiveData<List<GithubIssuesResponse>>()
-        result.postValue(tasksResult)
-        return result
-    }
-
-    public fun refreshTask(userInput: UserInput){
-        _updateData.value = userInput
-    }
-
 
 }
