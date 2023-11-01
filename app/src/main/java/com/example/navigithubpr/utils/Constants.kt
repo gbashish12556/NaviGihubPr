@@ -1,4 +1,4 @@
-package com.example.navigithubpr
+package com.example.navigithubpr.utils
 
 class Constants {
     companion object {

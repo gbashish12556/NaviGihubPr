@@ -1,17 +1,12 @@
-package com.example.navigithubpr
+package com.example.navigithubpr.di
 
 import android.content.Context
 import androidx.databinding.ktx.BuildConfig
 import androidx.room.Room
-import com.example.kutumbreadsms.data.source.db.RoomDataSource
-import com.example.navigithubpr.data.source.DefaultPreRepository
-import com.example.navigithubpr.data.source.PrLocalDataSource
-import com.example.navigithubpr.data.source.PrRemoteDataSource
-import com.example.navigithubpr.data.source.PrRepository
 import com.example.navigithubpr.data.source.remote.ApiHelper
 import com.example.navigithubpr.data.source.remote.ApiHelperImpl
 import com.example.navigithubpr.data.source.remote.ApiService
-import com.example.navigithubpr.data.source.remote.RemoteDataSource
+import com.example.navigithubpr.utils.Constants
 import com.example.truecreditslist.db.PrLocalDb
 import dagger.Module
 import dagger.Provides

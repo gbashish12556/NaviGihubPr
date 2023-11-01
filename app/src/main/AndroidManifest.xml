@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NaviGithubPr">
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

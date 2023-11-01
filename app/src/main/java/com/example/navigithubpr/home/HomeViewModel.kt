@@ -15,7 +15,7 @@ class HomeViewModel @Inject constructor() : ViewModel()
     private val _dataSubmitted = MutableLiveData<UserInput>()
     val dataSubmitted: LiveData<UserInput> = _dataSubmitted
 
-    // Two-way databinding, exposing MutableLiveData
+    // Two-way databinding, exposing MutableLiveDatagit c
     val orgName = MutableLiveData<String>("android")
 
     // Two-way databinding, exposing MutableLiveData

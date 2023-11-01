@@ -1,7 +1,7 @@
 package com.example.navigithubpr.prlist
 
 import androidx.lifecycle.*
-import com.example.navigithubpr.NetworkHelper
+import com.example.navigithubpr.utils.NetworkHelper
 import com.example.navigithubpr.data.UserInput
 import com.example.navigithubpr.data.response.GithubIssuesResponse
 import com.example.navigithubpr.data.source.PrRepository

@@ -1,4 +1,4 @@
-package com.example.navigithubpr
+package com.example.navigithubpr.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
