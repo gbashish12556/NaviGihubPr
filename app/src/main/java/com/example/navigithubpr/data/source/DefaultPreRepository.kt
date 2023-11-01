@@ -1,14 +1,10 @@
 package com.example.navigithubpr.data.source
 
-import androidx.lifecycle.LiveData
 import com.example.navigithubpr.data.response.GithubIssuesResponse
-import com.example.navigithubpr.data.UserInput
-import com.example.navigithubpr.data.response.Resource
+import com.example.navigithubpr.home.UserInput
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.Response
-import retrofit2.await
 
 class DefaultPreRepository(private val prRemoteDataSource: PrRemoteDataSource,
 //                           private val prLocalDataSource: PrLocalDataSource,

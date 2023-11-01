@@ -3,9 +3,13 @@ package com.example.navigithubpr.di
 import android.content.Context
 import androidx.databinding.ktx.BuildConfig
 import androidx.room.Room
+import com.example.navigithubpr.data.source.DefaultPreRepository
+import com.example.navigithubpr.data.source.PrRemoteDataSource
+import com.example.navigithubpr.data.source.PrRepository
 import com.example.navigithubpr.data.source.remote.ApiHelper
 import com.example.navigithubpr.data.source.remote.ApiHelperImpl
 import com.example.navigithubpr.data.source.remote.ApiService
+import com.example.navigithubpr.data.source.remote.RemoteDataSource
 import com.example.navigithubpr.utils.Constants
 import com.example.truecreditslist.db.PrLocalDb
 import dagger.Module
@@ -67,6 +71,20 @@ class ApplicationModule {
             PrLocalDb::class.java, "sms_local.db"
         ).build()
         return result
+    }
+
+    @Provides
+    @Singleton
+    fun providePrRepository(prRemoteDataSource: PrRemoteDataSource,
+//                            @PrViewModeComponent prLocalDataSource: PrLocalDataSource
+    ): PrRepository {
+        return DefaultPreRepository(prRemoteDataSource);
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(apiHelper: ApiHelper): PrRemoteDataSource {
+        return RemoteDataSource(apiHelper);
     }
 
 }

@@ -1,40 +1,39 @@
 package com.example.navigithubpr.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.navigithubpr.data.UserInput
-import com.example.navigithubpr.data.source.PrRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel()
 {
 
-    private val _dataSubmitted = MutableLiveData<UserInput>()
-    val dataSubmitted: LiveData<UserInput> = _dataSubmitted
+    private var _uiState = MutableStateFlow(UserInput(orgName="android", folderName = "architecture-samples", prStatus = "all"))
+    var uiState = _uiState
 
-    // Two-way databinding, exposing MutableLiveDatagit c
-    val orgName = MutableLiveData<String>("android")
-
-    // Two-way databinding, exposing MutableLiveData
-    val folderName = MutableLiveData<String>("architecture-samples")
-
-    // Two-way databinding, exposing MutableLiveData
-    val prStatus = MutableLiveData<String>("all")
-
-
-    inline private fun onDataSubmit(userInput:UserInput) {
-        _dataSubmitted.value = userInput
+    fun updateOrg(orgName:String){
+        _uiState.update {
+            it.copy(orgName=orgName)
+        }
     }
 
+    fun updateFolder(folderName:String){
+        _uiState.update {
+            it.copy(folderName=folderName)
+        }
+    }
+
+    fun updatePrStatus(prStatus:String){
+        _uiState.update {
+            it.copy(prStatus = prStatus)
+        }
+    }
+
+
     fun submitInput() {
-        val org = orgName.value
-        val folder = folderName.value
-        val status = prStatus.value
-        val userInput = UserInput(org ,folder, status)
-        onDataSubmit(userInput)
+
     }
 
 }
