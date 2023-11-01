@@ -31,9 +31,9 @@ class HomeActivity : AppCompatActivity() {
                         }
 
                         composable(
-                            route = Screen.PrListScreen.route+"/prDetail"
+                            route = Screen.PrListScreen.route+"/{prDetail}"
                         ){
-                            PrListScreen(navController = navController)
+                            PrListScreen()
                         }
 
                     }

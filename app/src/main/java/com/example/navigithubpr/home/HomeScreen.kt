@@ -15,6 +15,8 @@ import androidx.navigation.NavController
 import com.example.navigithubpr.Screen
 import com.example.navigithubpr.prlist.PrViewModel
 import com.google.gson.Gson
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 @Composable
@@ -63,7 +65,9 @@ fun HomeScreen(
         
         Button(onClick = {
             val prDetail = Gson().toJson(state)
-            navController.navigate(Screen.PrListScreen.route+"/${prDetail}")
+            var encode = URLEncoder.encode(prDetail, StandardCharsets.UTF_8.toString())
+//            navController.navigate(Screen.PrListScreen.route+"/${prDetail}")
+            navController.navigate(Screen.PrListScreen.route+"/$encode")
         }) {
             Text(text = "Submit")
         }
