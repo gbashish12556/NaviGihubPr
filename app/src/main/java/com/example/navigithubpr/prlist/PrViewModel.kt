@@ -8,6 +8,8 @@ import com.example.navigithubpr.data.source.PrRepository
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,16 +19,8 @@ class PrViewModel
                     savedStateHandle:SavedStateHandle) : ViewModel()
 {
 
-    private val _dataLoading = MutableLiveData<Boolean>(false)
-    val dataLoading: LiveData<Boolean> = _dataLoading
-
-    private val _isDataLoadingError = MutableLiveData<Pair<Boolean,String>>(Pair(false,""))
-    val isDataLoadingError: LiveData<Pair<Boolean,String>> = _isDataLoadingError
-
-
-    private val _users = MutableLiveData<List<GithubIssuesResponse>>()
-    val items: LiveData<List<GithubIssuesResponse>>
-        get() = _users
+    private val _uiState = MutableStateFlow(PrListState())
+    val uiState = _uiState
 
     init {
         var userInput = Gson().fromJson<UserInput>(savedStateHandle.get<String>("prDetail"), UserInput::class.java)
@@ -36,19 +30,28 @@ class PrViewModel
     fun fetchUsers(userInputState: UserInput) {
         viewModelScope.launch {
             if (networkHelper.isNetworkConnected()) {
-                _dataLoading.value = true;
-                prRepository.getTasks(userInputState).let {
-                    _dataLoading.value  = false;
-                    if (it.isSuccessful) {
-                        _isDataLoadingError.value = Pair(false,"")
-                        _users.postValue(it.body())
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+                prRepository.getTasks(userInputState).let {response->
+                    _uiState.update {
+                        it.copy(isLoading = false)
+                    }
+                    if (response.isSuccessful) {
+                        _uiState.update {liststate->
+                            liststate.copy(isLoading = false, isLoadingError = false, error = "", list = response.body())
+                        }
                     } else {
-                        _isDataLoadingError.value = Pair(true,"No Match Found")
+                        _uiState.update {
+                            it.copy(isLoadingError = true, error = "No match found")
+                        }
                     }
                 }
             }
             else {
-                _isDataLoadingError.value = Pair(true,"Slow Internet")
+                _uiState.update {
+                    it.copy(isLoadingError = true, error = "Slow internet")
+                }
             }
         }
     }
