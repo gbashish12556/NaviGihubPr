@@ -1,10 +1,12 @@
 package com.example.navigithubpr.prlist
 
 import androidx.lifecycle.*
+import com.example.navigithubpr.common.Resource
 import com.example.navigithubpr.utils.NetworkHelper
 import com.example.navigithubpr.home.UserInput
 import com.example.navigithubpr.data.response.GithubIssuesResponse
 import com.example.navigithubpr.data.source.PrRepository
+import com.example.navigithubpr.usecases.GetPrListUseCase
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -13,9 +15,8 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class PrViewModel
-@Inject constructor(var prRepository: PrRepository,
-                    private val networkHelper: NetworkHelper,
+class PrViewModel @Inject
+constructor(val prListUseCase: GetPrListUseCase,
                     savedStateHandle:SavedStateHandle) : ViewModel()
 {
 
@@ -23,37 +24,34 @@ class PrViewModel
     val uiState = _uiState
 
     init {
+
         var userInput = Gson().fromJson<UserInput>(savedStateHandle.get<String>("prDetail"), UserInput::class.java)
         fetchUsers(userInput)
+
     }
 
-    fun fetchUsers(userInputState: UserInput) {
+    fun fetchUsers(userInput: UserInput) {
+
         viewModelScope.launch {
-            if (networkHelper.isNetworkConnected()) {
-                _uiState.update {
-                    it.copy(isLoading = true)
-                }
-                prRepository.getTasks(userInputState).let {response->
-                    _uiState.update {
-                        it.copy(isLoading = false)
+
+            val coins  = prListUseCase(userInput = userInput)
+
+            coins.collect {result->
+                when(result){
+                    is Resource.Success->{
+                        _uiState.value = PrListState(list = result.data?: emptyList())
                     }
-                    if (response.isSuccessful) {
-                        _uiState.update {liststate->
-                            liststate.copy(isLoading = false, isLoadingError = false, error = "", list = response.body())
-                        }
-                    } else {
-                        _uiState.update {
-                            it.copy(isLoadingError = true, error = "No match found")
-                        }
+                    is Resource.Error->{
+                        _uiState.value = PrListState(error = result.message?:"Something went wrong")
+                    }
+                    is Resource.Loading->{
+                        _uiState.value = PrListState(isLoading = true)
                     }
                 }
             }
-            else {
-                _uiState.update {
-                    it.copy(isLoadingError = true, error = "Slow internet")
-                }
-            }
+
         }
+
     }
 
 }
