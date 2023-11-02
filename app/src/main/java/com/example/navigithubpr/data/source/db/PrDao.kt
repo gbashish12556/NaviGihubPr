@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.navigithubpr.data.response.GithubIssuesResponse
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PrDao {
@@ -14,7 +15,7 @@ interface PrDao {
     suspend fun insertAll(posts: List<GithubIssuesResponse>)
 
     @Query("SELECT * FROM issues_table")
-    fun allPrs(): LiveData<List<GithubIssuesResponse>>
+    fun allPrs(): Flow<List<GithubIssuesResponse>>
 
     @Query("DELETE FROM issues_table")
     suspend fun deletePrs()

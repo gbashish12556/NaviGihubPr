@@ -36,20 +36,17 @@ constructor(val prListUseCase: GetPrListUseCase,
 
             val coins  = prListUseCase(userInput = userInput)
 
-            coins.collect {result->
-                when(result){
-                    is Resource.Success->{
-                        _uiState.value = PrListState(list = result.data?: emptyList())
+            coins.collect{list->
+                if(list.isEmpty()){
+                    _uiState.update {
+                        it.copy(isLoading = true)
                     }
-                    is Resource.Error->{
-                        _uiState.value = PrListState(error = result.message?:"Something went wrong")
-                    }
-                    is Resource.Loading->{
-                        _uiState.value = PrListState(isLoading = true)
+                }else{
+                    _uiState.update {
+                        it.copy(list = list)
                     }
                 }
             }
-
         }
 
     }

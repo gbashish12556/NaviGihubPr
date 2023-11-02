@@ -6,13 +6,15 @@ import com.example.navigithubpr.data.source.PrLocalDataSource
 import com.example.truecreditslist.db.PrDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RoomDataSource internal constructor(
+class RoomDataSource internal @Inject constructor(
     private val prDao: PrDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO ) : PrLocalDataSource{
 
-    override fun getPrs(): LiveData<List<GithubIssuesResponse>> {
+    override fun getPrs(): Flow<List<GithubIssuesResponse>> {
         return prDao.allPrs()
     }
 

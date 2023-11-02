@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.databinding.ktx.BuildConfig
 import androidx.room.Room
 import com.example.navigithubpr.data.source.DefaultPreRepository
+import com.example.navigithubpr.data.source.PrLocalDataSource
 import com.example.navigithubpr.data.source.PrRemoteDataSource
 import com.example.navigithubpr.data.source.PrRepository
 import com.example.navigithubpr.data.source.remote.ApiHelper
@@ -11,6 +12,7 @@ import com.example.navigithubpr.data.source.remote.ApiHelperImpl
 import com.example.navigithubpr.data.source.remote.ApiService
 import com.example.navigithubpr.data.source.remote.RemoteDataSource
 import com.example.navigithubpr.utils.Constants
+import com.example.navigithubpr.utils.NetworkHelper
 import com.example.truecreditslist.db.PrLocalDb
 import dagger.Module
 import dagger.Provides
@@ -76,9 +78,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providePrRepository(prRemoteDataSource: PrRemoteDataSource,
-//                            @PrViewModeComponent prLocalDataSource: PrLocalDataSource
+                            prLocalDataSource: PrLocalDataSource,
+                            networkHelper: NetworkHelper
     ): PrRepository {
-        return DefaultPreRepository(prRemoteDataSource);
+        return DefaultPreRepository(prRemoteDataSource, prLocalDataSource, networkHelper);
     }
 
     @Provides
