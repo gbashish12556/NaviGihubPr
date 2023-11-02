@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class RoomDataSource internal @Inject constructor(
+class RoomDataSource internal constructor(
     private val prDao: PrDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO ) : PrLocalDataSource{
 

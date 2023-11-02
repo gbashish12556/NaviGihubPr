@@ -3,6 +3,7 @@ package com.example.navigithubpr.di
 import android.content.Context
 import androidx.databinding.ktx.BuildConfig
 import androidx.room.Room
+import com.example.kutumbreadsms.data.source.db.RoomDataSource
 import com.example.navigithubpr.data.source.DefaultPreRepository
 import com.example.navigithubpr.data.source.PrLocalDataSource
 import com.example.navigithubpr.data.source.PrRemoteDataSource
@@ -77,6 +78,12 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun provideLocalDataSource(prLocalDb: PrLocalDb): PrLocalDataSource {
+        return RoomDataSource(prLocalDb.prDao());
+    }
+
+    @Provides
+    @Singleton
     fun providePrRepository(prRemoteDataSource: PrRemoteDataSource,
                             prLocalDataSource: PrLocalDataSource,
                             networkHelper: NetworkHelper
@@ -89,5 +96,6 @@ class ApplicationModule {
     fun provideRemoteDataSource(apiHelper: ApiHelper): PrRemoteDataSource {
         return RemoteDataSource(apiHelper);
     }
+
 
 }
